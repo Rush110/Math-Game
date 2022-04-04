@@ -4,11 +4,15 @@
 package mathGame;
 
 import java.util.Random;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
+//Question Class
 public class Question {
 
 	Random random = new Random();
-
+	
+	//Method for generating random question	
 	public String GenerateQuestion() {
 
 		// generating random numbers between 0-50
@@ -19,21 +23,21 @@ public class Question {
 		String operators = "+-*/";
 		char operator = operators.charAt(random.nextInt(operators.length()));
 
-
-		String question = String.format("What is %d %s %d ?",num1,operator,num2);
-		
+		String question = String.format("What is %d %s %d ?", num1, operator, num2);
 
 		return question;
 	}
 
+	//	method for evaluating the answer	
 	public double evaluateAnswer(String question) {
-		String[] questionArray =question.split(" ");
-		
-		int num1=Integer.parseInt(questionArray[2]);
-		int num2=Integer.parseInt(questionArray[4]);
-		String operator=questionArray[3];
-		
-		double result=0;
+		String[] questionArray = question.split(" ");
+		final DecimalFormat df = new DecimalFormat("0.00");
+		df.setRoundingMode(RoundingMode.UP);
+		int num1 = Integer.parseInt(questionArray[2]);
+		int num2 = Integer.parseInt(questionArray[4]);
+		String operator = questionArray[3];
+
+		double result = 0;
 		switch (operator) {
 		case "+":
 			result = num1 + num2;
@@ -45,11 +49,12 @@ public class Question {
 			result = num1 * num2;
 			break;
 		case "/":
-			result = num1 / num2;
+			result = (double) num1 / num2;
 			break;
 		}
-		
+
 		;
-		return result;
+		String tempRes = df.format(result);
+		return Double.parseDouble(tempRes);
 	}
 }
