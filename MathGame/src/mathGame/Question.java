@@ -9,7 +9,7 @@ public class Question {
 
 	Random random = new Random();
 
-	public String[] GenerateQuestion() {
+	public String GenerateQuestion() {
 
 		// generating random numbers between 0-50
 		int num1 = random.nextInt(50);
@@ -19,28 +19,37 @@ public class Question {
 		String operators = "+-*/";
 		char operator = operators.charAt(random.nextInt(operators.length()));
 
-		double result = 0;
 
-		String question = "";
+		String question = String.format("What is %d %s %d ?",num1,operator,num2);
+		
 
+		return question;
+	}
+
+	public double evaluateAnswer(String question) {
+		String[] questionArray =question.split(" ");
+		
+		int num1=Integer.parseInt(questionArray[2]);
+		int num2=Integer.parseInt(questionArray[4]);
+		String operator=questionArray[3];
+		
+		double result=0;
 		switch (operator) {
-		case '+':
+		case "+":
 			result = num1 + num2;
 			break;
-		case '-':
+		case "-":
 			result = num1 - num2;
 			break;
-		case '*':
+		case "*":
 			result = num1 * num2;
 			break;
-		case '/':
+		case "/":
 			result = num1 / num2;
 			break;
 		}
-		question = "What is " + num1 + operator + num2 + " ?";
-
-		String[] output = { question, String.valueOf(result) };
-
-		return output;
+		
+		;
+		return result;
 	}
 }

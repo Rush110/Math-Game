@@ -20,10 +20,8 @@ public class MathGame {
 			Question q = new Question();
 			for (int i = 0; i < numOfQuestions; ++i) {
 
-				String[] generatedQuestion = q.GenerateQuestion();
-
-				String question = generatedQuestion[0];
-				double result = Double.parseDouble(generatedQuestion[1]);
+				String question = q.GenerateQuestion();
+				double result = q.evaluateAnswer(question);
 
 				System.out.println(question);
 
